@@ -193,7 +193,7 @@ if st.button("Add Block"):
     # which is set equal to a `Record` that contains the `sender`, `receiver`,
     # and `amount` values
     new_block = Block(
-        data=input_data,
+        record=Record(sender=sender, receiver=receiver, amount=amount),
         creator_id=42,
         prev_hash=prev_block_hash
     )
@@ -206,8 +206,14 @@ if st.button("Add Block"):
 
 st.markdown("## The PyChain Ledger")
 
-pychain_df = pd.DataFrame(pychain.chain)
-st.write(pychain_df)
+# DataFrame error handling exception
+try:
+    pychain_df = pd.DataFrame(pychain.chain)
+    st.write(pychain_df)
+except:
+    st.write(pychain.chain)
+    st.markdown("*NOTE: Streamlit error processing DataFrame. Displaying chain list instead.*")
+
 
 difficulty = st.sidebar.slider("Block Difficulty", 1, 5, 2)
 pychain.difficulty = difficulty
