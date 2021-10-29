@@ -209,7 +209,7 @@ st.markdown("## The PyChain Ledger")
 # DataFrame error handling exception
 try:
     pychain_df = pd.DataFrame(pychain.chain)
-    st.write(pychain_df)
+    st.write(pychain_df.astype("str"))
 except:
     st.write(pychain.chain)
     st.markdown("*NOTE: Streamlit error processing DataFrame. Displaying chain list instead.*")
